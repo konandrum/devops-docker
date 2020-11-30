@@ -41,3 +41,12 @@ As you can see in the docker-compose file, the application is running over the `
 So simply open a browser, and go to the following url: [http://127.0.0.1:8070](http://127.0.0.1:8070)
 
 You can change the allocated port if this one is already used.
+
+
+How to stop the containers
+--------------------------
+Go inside the folder that contains the `docker-compose.yaml` file, then run the following command:
+
+```sh
+$ docker-compose kill
+```
