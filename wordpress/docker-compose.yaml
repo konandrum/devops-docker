@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  wordpress_mysqldb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    volumes:
+      - 'wordpress_mysql_data:/var/lib/mysql'
+
+  wordrpess_app:
+    image: wordpress:php7.4-apache
+    ports:
+      - '8070:80'
+    environment:
+      - WORDPRESS_DB_HOST=wordpress_mysqldb
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+    depends_on:
+      - wordpress_mysqldb
+
+volumes:
+  wordpress_mysql_data:
+    driver: local

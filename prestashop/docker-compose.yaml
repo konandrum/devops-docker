@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  prestashop_mysqldb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=prestashop
+      - MYSQL_USER=prestashop
+      - MYSQL_PASSWORD=prestashop
+    volumes:
+      - 'prestashop_mysql_data:/var/lib/mysql'
+
+  prestashop_app:
+    image: prestashop/prestashop:1.7
+    ports:
+      - '8069:80'
+    environment:
+      - DB_SERVER=prestashop_mysqldb
+      - DB_USER=prestashop
+      - DB_PASSWD=prestashop
+      - DB_NAME=prestashop
+      - ADMIN_PASSWD=admin
+      - PS_LANGUAGE=fr
+      - PS_COUNTRY=FR
+    depends_on:
+      - prestashop_mysqldb
+
+volumes:
+  prestashop_mysql_data:
+    driver: local
